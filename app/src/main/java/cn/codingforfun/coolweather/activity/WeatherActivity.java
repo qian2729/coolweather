@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.codingforfun.coolweather.R;
+import cn.codingforfun.coolweather.service.AutoUpdateService;
 import cn.codingforfun.coolweather.util.HttpCallbackListener;
 import cn.codingforfun.coolweather.util.HttpUtil;
 import cn.codingforfun.coolweather.util.Utility;
@@ -129,15 +130,17 @@ public class WeatherActivity extends Activity implements View.OnClickListener {
     private void showWeather(){
         Log.d(TAG,"showWeather executed");
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.d(TAG,"city_name" + prefs.getString("city_name",""));
+        Log.d(TAG, "city_name" + prefs.getString("city_name", ""));
         cityNameText.setText(prefs.getString("city_name",""));
         temp1Text.setText(prefs.getString("temp1",""));
         temp2Text.setText(prefs.getString("temp2",""));
         weatherDespText.setText(prefs.getString("weather_desp",""));
         publishText.setText(prefs.getString("publish_time",""));
-        currentDateText.setText(prefs.getString("current_date",""));
+        currentDateText.setText(prefs.getString("current_date", ""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 }
